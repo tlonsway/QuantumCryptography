@@ -15,13 +15,20 @@ import './App.css';
 
 import DevStatus from './DevStatus.js';
 import Key from './Key.js';
+import ManualControls from './ManualControls.js';
+
 import { sendAndReceiveSerial, sendSerial } from './api.js';
+
+import { PAGES } from './enums.js';
 
 function App() {
   const [aliceAngle, setAliceAngle] = useState(0);
   const [bobAngle, setBobAngle] = useState(0);
   const [eveAngle0, setEveAngle0] = useState(0);
   const [eveAngle1, setEveAngle1] = useState(0);
+
+  const [page, setPage] = useState(PAGES.MANUAL);
+
   useEffect(() => {
     updateArduinoAngle('alice', setAliceAngle, 0);
     updateArduinoAngle('bob', setBobAngle, 0);
@@ -40,6 +47,23 @@ function App() {
       sendSerial(arduino_name, "SET_POS|"+e.target.value+"|"+devnum);
       ard_angle_statefunc(e.target.value);
     };
+  }
+
+  function renderPage(page) {
+    switch(page) {
+      case(PAGES.MANUAL):
+        return (
+          <ManualControls />
+        );
+      case(PAGES.AUTO):
+        return (
+          <p>Auto</p>
+        );
+      default:
+        return (
+          <p>error</p>
+        );
+    }
   }
 
   return (
@@ -62,6 +86,45 @@ function App() {
             >
               BB84 Lab Control Panel
             </Typography>
+            <Button variant="outlined" sx={{ color: 'white', marginRight: 2, borderColor: 'white', borderWidth: 3 }} onClick={() => {setPage(PAGES.MANUAL)}}>
+              Manual Mode
+            </Button>
+            <Button variant="outlined" sx={{ color: 'white', marginRight: 2, borderColor: 'white', borderWidth: 3 }} onClick={() => {setPage(PAGES.AUTO)}} >
+              Auto Mode
+            </Button>
+          </Toolbar>
+        </Container> 
+      </AppBar>
+      {renderPage(page)}
+    </div>
+  );
+
+  /*return (
+    <div>
+      <AppBar position="static">
+        <Container>
+          <Toolbar>
+            <Typography
+              variant="h4"
+              noWrap
+              sx={{
+                mr: 2,
+                display: { xs: 'none', md: 'flex' },
+                fontFamily: 'monospace',
+                fontWeight: 700,
+                letterSpacing: '.3rem',
+                color: 'inherit',
+                textDecoration: 'none',
+              }}
+            >
+              BB84 Lab Control Panel
+            </Typography>
+            <Button variant="outlined" sx={{ color: 'white', marginRight: 2, borderColor: 'white', borderWidth: 3 }} >
+              Manual Mode
+            </Button>
+            <Button variant="outlined" sx={{ color: 'white', marginRight: 2, borderColor: 'white', borderWidth: 3 }} >
+              Auto Mode
+            </Button>
           </Toolbar>
         </Container> 
       </AppBar>
@@ -168,7 +231,7 @@ function App() {
         </div>
       </div>
     </div>
-  );
+  );*/
 }
 
 export default App;

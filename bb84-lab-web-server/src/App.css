@@ -5,6 +5,10 @@
 
 }
 
+.controls {
+  display: flex;
+}
+
 .control-partition {
   margin: 10px;
 }
@@ -47,3 +51,5 @@
     transform: rotate(360deg);
   }
 }
+
+
