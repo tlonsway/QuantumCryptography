@@ -16,15 +16,21 @@ function ManualControls() {
         className="controls"
         style={{ marginTop: '20px', display: 'flex', justifyContent: 'space-evenly' }}
         >
-        <Paper elevation={3} sx={{ p: 3, mx: 'auto', width: 400 }}>
-          <AliceManualControls />
-        </Paper>
-        <Paper elevation={3} sx={{ p: 3, mx: 'auto', width: 400 }}>
-          <BobManualControls />
-        </Paper>
-        <Paper elevation={3} sx={{ p: 3, mx: 'auto', width: 400 }}>
-          <EveManualControls />
-        </Paper>
+        <div>
+          <Paper elevation={3} sx={{ p: 3, mx: 'auto', width: 400 }}>
+            <AliceManualControls />
+          </Paper>
+        </div>
+        <div>
+          <Paper elevation={3} sx={{ p: 3, mx: 'auto', width: 400 }}>
+            <BobManualControls />
+          </Paper>
+        </div>
+        <div>
+          <Paper elevation={3} sx={{ p: 3, mx: 'auto', width: 400 }}>
+            <EveManualControls />
+          </Paper>
+        </div>
       </div>
     </div>
   );

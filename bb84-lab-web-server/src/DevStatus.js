@@ -40,25 +40,30 @@ function DevStatus() {
     });
   }, []);
   return (
-    <div>
-      <Typography
-        variant="h6"
-        noWrap
-        sx={{
-          mr: 2,
-          display: { xs: 'none', md: 'flex' },
-          fontFamily: 'monospace',
-          fontWeight: 700,
-          letterSpacing: '.3rem',
-          color: 'inherit',
-          textDecoration: 'none',
-        }}
-      >
-        Arduino Status
-      </Typography>
-      <Chip label='Alice' sx={{ backgroundColor: aliceStatus }} />
-      <Chip label='Bob' sx={{ backgroundColor: bobStatus }} />
-      <Chip label='Eve' sx={{ backgroundColor: eveStatus }} />
+    <div style={{ padding: '5px' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+        <Typography
+          variant="h6"
+          noWrap
+          sx={{
+            mr: 2,
+            display: { xs: 'none', md: 'flex' },
+            fontFamily: 'monospace',
+            fontWeight: 700,
+            letterSpacing: '.3rem',
+            color: 'inherit',
+            textDecoration: 'none',
+            marginRight: 0
+          }}
+        >
+          Arduino Status
+        </Typography>
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+        <Chip label='Alice' sx={{ backgroundColor: aliceStatus }} />
+        <Chip label='Bob' sx={{ backgroundColor: bobStatus }} />
+        <Chip label='Eve' sx={{ backgroundColor: eveStatus }} />
+      </div>
     </div>
   );
 }

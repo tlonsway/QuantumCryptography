@@ -1,6 +1,10 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
-import { Typography, Paper, TextField } from '@mui/material/';
+import { Typography, Paper, TextField, Box } from '@mui/material/';
+
+import GenerateKey from './GenerateKey.js';
+import ReceiveKey from './ReceiveKey.js';
+import InterceptKey from './InterceptKey.js'
 
 import './App.css';
 
@@ -8,22 +12,22 @@ function AutoControls() {
   const [message, setMessage] = useState("");
 
   return (
-    <div>
-      <Typography
-        variant="h6"
-        noWrap
-        sx={{
-          mr: 2,
-          display: { xs: 'none', md: 'flex' },
-          fontFamily: 'monospace',
-          fontWeight: 700,
-          letterSpacing: '.3rem',
-          color: 'inherit',
-          textDecoration: 'none',
-        }}
-      >
-
-      </Typography>
+      <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'space-evenly' }}>
+        <div>
+          <Paper elevation={3} sx={{ p: 3, mx: 'auto', width: 400 }}>
+            <GenerateKey />
+          </Paper>
+        </div>
+        <div>
+          <Paper elevation={3} sx={{ p: 3, mx: 'auto', width: 400 }}>
+            <ReceiveKey />
+          </Paper>
+        </div>
+        <div>
+          <Paper elevation={3} sx={{ p: 3, mx: 'auto', width: 400 }}>
+            <InterceptKey />
+          </Paper>
+        </div>
     </div>
   );
 }

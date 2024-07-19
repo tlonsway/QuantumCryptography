@@ -15,26 +15,24 @@ import TextField from '@mui/material/TextField';
 import './App.css';
 import { sendAndReceiveSerial, sendSerial } from './api.js';
 
-function Key() {
-  const [keyLength, setKeyLength] = useState(0); 
-  const [sentKey, setSentKey] = useState("");
+function InterceptKey() {
+  const [interceptedKey, setInterceptedKey] = useState("");
+  const [interceptedBasis, setInterceptedBasis] = useState("");
 
-  function generateKey() {
-    const commandstring = "GENERATE_KEY|" + keyLength;
-    sendSerial("alice", commandstring);
-  }
-
-  function getSentKey() {
-    const keyprom = sendAndReceiveSerial("alice","GET_SENT_KEY");
+  function getInterceptedKey() {
+    const keyprom = sendAndReceiveSerial("eve","GET_RECEIVE_KEY");
     keyprom.then((e) => {
-      console.log("setting sent key to: ");
+      console.log("setting intercepted key to: ");
       console.log(e);
-      setSentKey(e);
+      const keypart = e.split("|")[0];
+      const basispart = e.split("|")[1];
+      setInterceptedKey(keypart);
+      setInterceptedBasis(basispart);
     });
   }
 
   return (
-    <div>
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
       <Typography
         variant="h6"
         noWrap
@@ -48,28 +46,26 @@ function Key() {
           textDecoration: 'none',
         }}
       >
-        Key Generation
+        Key Interception (Eve)
       </Typography>
+      <Divider sx={{ margin: '20px' }} />
+      <Button variant="outlined" onClick={() => getInterceptedKey()}>
+        Retrieve Intercepted Key and Basis
+      </Button>
       <TextField 
-        value={keyLength} 
-        onChange={(e) => setKeyLength(e.target.value)}
-        size="small" 
-        label="Key Length (bits)" 
+        value={interceptedKey} 
+        label="Intercepted Key" 
         variant="outlined" 
+        sx={{ marginTop: '7px' }}
       />
-      <Button variant="outlined" onClick={() => generateKey()}>
-        Start Key Generation
-      </Button>
-      <Button variant="outlined" onClick={() => getSentKey()}>
-        Get Generated Key
-      </Button>
-      <TextField 
-        value={sentKey} 
-        label="Generated Key" 
-        variant="outlined" 
+      <TextField
+        value={interceptedBasis}
+        label="Intercepted Basis"
+        variant="outlined"
+        sx={{ marginTop: '7px' }}
       />
     </div>
   );
 }
 
-export default Key;
+export default InterceptKey;
